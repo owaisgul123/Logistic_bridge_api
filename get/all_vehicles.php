@@ -30,8 +30,27 @@ if ($user_id ==  1) {
         $users = $result->fetch_all(MYSQLI_ASSOC);
         http_response_code(200); // OK
         echo json_encode(["status" => "success", "message" => "vehicles fetched successfully", "data" => $users]);
+        exit;
     } else {
         http_response_code(404); // Not Found
         echo json_encode(["status" => "error", "message" => "No vehicles found"]);
+        exit;
     }
 }
+else {
+    // all vehicles admin 
+        $sql = "SELECT * FROM `vehicles` v where v.owned_by = $user_id;";
+        $result = $db->query($sql);
+    
+        if ($result->num_rows > 0) {
+            $users = $result->fetch_all(MYSQLI_ASSOC);
+            http_response_code(200); // OK
+            echo json_encode(["status" => "success", "message" => "vehicles fetched successfully", "data" => $users]);
+            exit;
+        } else {
+            http_response_code(404); // Not Found
+            echo json_encode(["status" => "error", "message" => "No vehicles found"]);
+            exit;
+        }
+    }
+    

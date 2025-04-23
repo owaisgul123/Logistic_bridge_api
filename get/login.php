@@ -30,7 +30,7 @@ $myusername = $_GET['username'];
 $mypassword = $_GET['password'];    
 
 // Use prepared statement to prevent SQL injection
-$stmt = $db->prepare("SELECT id, name, email, role_id FROM users WHERE email = ? AND `description` = ?");
+$stmt = $db->prepare("SELECT id, name, email, role_id, parent_id FROM users WHERE email = ? AND `description` = ?");
 $stmt->bind_param("ss", $myusername, $mypassword);
 $stmt->execute();
 $result = $stmt->get_result();
