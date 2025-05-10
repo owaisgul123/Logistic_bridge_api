@@ -11,9 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Extract driver info
 $name = $_POST["name"];
-$employee_number = $_POST["employee_number"];
-$passport_number = $_POST["passport_number"];
-$national_id_number = $_POST["national_id_number"];
+$employee_number = $_POST["employee_no"];
+$passport_number = $_POST["passport_no"];
+$national_id_number = $_POST["national_id"];
 $email = $_POST["email"];
 $cell_1 = $_POST["cell_1"];
 $cell_2 = $_POST["cell_2"] ?? null;

@@ -20,8 +20,7 @@ if (!isset($_GET["key"]) || $_GET["key"] !== $access_key) {
     exit;
 }
 
-// Fetch users
-
+  
 $sql = "SELECT * 
 FROM vehicles v  
 
