@@ -23,16 +23,7 @@ if (!isset($_GET["key"]) || $_GET["key"] !== $access_key) {
 // Fetch users
 
     $sql = "SELECT 
-    po.id,
-    po.po_number,
-    po.total_quantity,
-    po.truck_count,
-    po.contract_type,
-    po.route_description,
-    po.estimated_transit_days,
-    po.is_signed,
-    po.created_at,
-
+    po.*,
     -- Names from related tables
     cp.name AS contracting_party_name,
     roles.name AS contracting_party_role,

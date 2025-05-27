@@ -28,7 +28,7 @@ $sql = "SELECT u.id, u.name, u.email, u.password, u.description, u.role_id, u.pa
        ui.sub_role, ui.phone, ui.phone_2, ui.whatsapp_num, ui.telegram, ui.location  
 FROM users u  
 LEFT JOIN user_info ui ON u.id = ui.user_id
-INNER JOIN countries c ON c.id = ui.country_id  
+LEFT JOIN countries c ON c.id = ui.country_id  
 WHERE u.id = $user_id;
 ";
 $result = $db->query($sql);

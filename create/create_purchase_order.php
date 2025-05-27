@@ -26,7 +26,7 @@ $total_quantity = $_POST['total_quantity'];
 $truck_count = $_POST['truck_count'];
 $contract_type = $_POST['contract_type'];
 // $contract_file = $_POST['contract_file'] ?? null;
-$route_description = $_POST['route_description'] ?? null;
+$route_description = null;
 $estimated_transit_days = $_POST['estimated_transit_days'];
 $created_by = $_POST['created_by'];
 

@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $po_number = $_POST['po_id'] ?? null;
 $checkbox = $_POST['checkbox'] ?? null;
 $user_id = $_POST['user_id'] ?? null;
-
+$remarks = $_POST['remarks'] ?? null;
 if (!$po_number) {
     http_response_code(400);
     echo json_encode(["status" => "error", "message" => "Missing po_number."]);
@@ -24,7 +24,7 @@ $query = "UPDATE purchase_orders SET is_signed = $checkbox WHERE id = $po_number
 
 if (mysqli_query($db, $query)) {
     $act = $checkbox == 1 ? 'approved' : 'disapproved';
-    $query= "INSERT INTO purchase_order_logs (purchase_order_id, `action`, changed_by, remarks) VALUES ('$po_number', '$act', '$user_id', 'Purchase order updated')";
+    $query= "INSERT INTO purchase_order_logs (purchase_order_id, `action`, changed_by, remarks) VALUES ('$po_number', '$act', '$user_id', '$remarks')";
     if (mysqli_query($db, $query)) {
         http_response_code(200);
         echo json_encode(["status" => "success", "message" => "Purchase Order status updated successfully."]);

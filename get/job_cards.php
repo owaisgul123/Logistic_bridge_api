@@ -5,7 +5,7 @@ include("../config.php");
 
 $access_key = '03201232927';
 // $role_id = $_GET['role_id'];
-$dri_id = $_GET['id'];
+$job_ord_id = $_GET['job_order_id'];
 // Check request method
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     http_response_code(405); // Method Not Allowed
@@ -20,17 +20,18 @@ if (!isset($_GET["key"]) || $_GET["key"] !== $access_key) {
     exit;
 }
 
-  
-$sql = "SELECT d.* FROM drivers d  
-WHERE d.id = $dri_id;
+// Fetch drivers
+
+$sql = "SELECT jc.* FROM job_cards jc   
+WHERE jc.job_order_id = $job_ord_id;
 ";
 $result = $db->query($sql);
 
 if ($result->num_rows > 0) {
     $users = $result->fetch_all(MYSQLI_ASSOC);
     http_response_code(200); // OK
-    echo json_encode(["status" => "success", "message" => "Drivers fetched successfully", "data" => $users]);
+    echo json_encode(["status" => "success", "message" => "Job Cards fetched successfully", "data" => $users]);
 } else {
     http_response_code(404); // Not Found
-    echo json_encode(["status" => "error", "message" => "No Drivers found"]);
+    echo json_encode(["status" => "error", "message" => "No Job Cards found"]);
 }

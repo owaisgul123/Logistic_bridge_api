@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // Extract vehicle data from POST request
 $prime_mover_reg_no = $_POST["prime_mover_reg_no"] ?? null;
 $trailer_reg_no = $_POST["trailer_reg_no"];
+$chasis_no = $_POST["chasis_no"];
 $country_of_registration = $_POST["country_of_registration"] ?? null;
 // $registration_document = $_POST["registration_document"];
 // $picture = $_POST["picture"];
@@ -54,10 +55,10 @@ $file = null;
 
 
 // Insert vehicle into `vehicles` table
-$stmt = $db->prepare("INSERT INTO vehicles (prime_mover_reg_no, trailer_reg_no, country_of_registration, registration_document, picture, make, model, load_compartment_type, cooling_capacity, carrying_capacity, volume, no_of_axles, owned_by, created_by, created_at, updated_at) 
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
+$stmt = $db->prepare("INSERT INTO vehicles (prime_mover_reg_no, trailer_reg_no, country_of_registration, registration_document, picture, make, model, chasis_no, load_compartment_type, cooling_capacity, carrying_capacity, volume, no_of_axles, owned_by, created_by, created_at, updated_at) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
 
-$stmt->bind_param("sssssssssdiiii", $prime_mover_reg_no, $trailer_reg_no, $country_of_registration, $file, $file1, $make, $model, $load_compartment_type, $cooling_capacity, $carrying_capacity, $volume, $no_of_axles, $owned_by, $created_by);
+$stmt->bind_param("ssssssssssdiiii", $prime_mover_reg_no, $trailer_reg_no, $country_of_registration, $file, $file1, $make, $model, $chasis_no,$load_compartment_type, $cooling_capacity, $carrying_capacity, $volume, $no_of_axles, $owned_by, $created_by);
 
 if ($stmt->execute()) {
     http_response_code(201);

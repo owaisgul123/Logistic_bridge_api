@@ -5,7 +5,7 @@ include("../config.php");
 
 $access_key = '03201232927';
 // $role_id = $_GET['role_id'];
-$user_id = $_GET['user_id'];
+// $user_id = $_GET['user_id'];
 // Check request method
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     http_response_code(405); // Method Not Allowed
@@ -21,33 +21,16 @@ if (!isset($_GET["key"]) || $_GET["key"] !== $access_key) {
 }
 
 // Fetch users
-if ($user_id ==  1) {
 
-    $sql = "SELECT o.*, u.name as transporter FROM job_orders o LEFT JOIN users u ON o.transporter_id = u.id";
+    $sql = "SELECT * FROM `commodities`;";
     $result = $db->query($sql);
 
     if ($result->num_rows > 0) {
         $users = $result->fetch_all(MYSQLI_ASSOC);
         http_response_code(200); // OK
-        echo json_encode(["status" => "success", "message" => "JOb Orders fetched successfully", "data" => $users]);
+        echo json_encode(["status" => "success", "message" => "Roles fetched successfully", "data" => $users]);
     } else {
         http_response_code(404); // Not Found
         echo json_encode(["status" => "error", "message" => "No users found"]);
     }
-} else {
-    $sql = "SELECT o.* FROM job_orders o where o.created_by = ?";
-    $stmt = $db->prepare($sql);
-    $stmt->bind_param("i", $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $users = $result->fetch_all(MYSQLI_ASSOC);
-        http_response_code(200); // OK
-        echo json_encode(["status" => "success", "message" => "Users fetched successfully", "data" => $users]);
-    } else {
-        http_response_code(404); // Not Found
-        echo json_encode(["status" => "error", "message" => "No users found"]);
-    }
-    $stmt->close();
-}
+?>
