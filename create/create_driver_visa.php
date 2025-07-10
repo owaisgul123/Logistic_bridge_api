@@ -7,6 +7,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// echo var_dump($_POST);
+// echo var_dump($_FILES);
+// exit;
+
 $driver_id = $_POST["driver_id"] ?? null;
 if (!$driver_id) {
     http_response_code(400);
@@ -41,6 +45,9 @@ for ($i = 0; $i < count($visa_countries); $i++) {
     if (isset($visa_scans['name'][$i]) && $visa_scans['error'][$i] === UPLOAD_ERR_OK) {
         $visa_scan = rand(1000, 100000) . "-" . $visa_scans['name'][$i];
         move_uploaded_file($visa_scans['tmp_name'][$i], "../uploads/visas/" . $visa_scan);
+    }
+    else {
+        $visa_scan = $_POST['file_hidden'][$i];
     }
 
     $stmt = $db->prepare("INSERT INTO driver_visas (driver_id, country, visa_number, expiry_date, visa_scan, created_at, updated_at) 

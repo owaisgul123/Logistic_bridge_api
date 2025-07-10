@@ -10,10 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 
-$job_card_id = $_POST['job_card_id'];
+$job_card_id = $_POST['job_c_id'];
 $event_type = $_POST['event_type'];
 $location_name = $_POST['location_name'];
-$status = $_POST['status'];
+$status = $_POST['status'] ?? null;
 $remarks = $_POST['remarks'] ?? null;
 
 $stmt = $db->prepare("INSERT INTO job_card_logs (job_card_id, event_type, location_name, status, remarks, timestamp)

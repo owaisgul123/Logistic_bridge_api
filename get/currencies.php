@@ -5,7 +5,7 @@ include("../config.php");
 
 $access_key = '03201232927';
 // $role_id = $_GET['role_id'];
-$job_card_id = $_GET['job_card_id'];
+// $user_id = $_GET['user_id'];
 // Check request method
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     http_response_code(405); // Method Not Allowed
@@ -22,17 +22,15 @@ if (!isset($_GET["key"]) || $_GET["key"] !== $access_key) {
 
 // Fetch users
 
-$sql = "SELECT jcd.*  
-FROM job_card_documents jcd   
-WHERE jcd.job_card_id = $job_card_id;
-";
-$result = $db->query($sql);
+    $sql = "SELECT `currency_code` FROM `exchange_rates`;";
+    $result = $db->query($sql);
 
-if ($result->num_rows > 0) {
-    $users = $result->fetch_all(MYSQLI_ASSOC);
-    http_response_code(200); // OK
-    echo json_encode(["status" => "success", "message" => "Documents fetched successfully", "data" => $users]);
-} else {
-    http_response_code(404); // Not Found
-    echo json_encode(["status" => "error", "message" => "No users found"]);
-}
+    if ($result->num_rows > 0) {
+        $users = $result->fetch_all(MYSQLI_ASSOC);
+        http_response_code(200); // OK
+        echo json_encode(["status" => "success", "message" => "Roles fetched successfully", "data" => $users]);
+    } else {
+        http_response_code(404); // Not Found
+        echo json_encode(["status" => "error", "message" => "No users found"]);
+    }
+?>

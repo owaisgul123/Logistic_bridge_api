@@ -23,7 +23,7 @@ if (!isset($_GET["key"]) || $_GET["key"] !== $access_key) {
 // Fetch drivers
 
 $sql = "SELECT v.* FROM driver_visas v   
-WHERE v.driver_id = $driver_id;
+WHERE v.driver_id = $driver_id ORDER BY DATE(expiry_date) ASC;
 ";
 $result = $db->query($sql);
 
